@@ -1,0 +1,163 @@
+{
+  "name": "code-task",
+  "displayName": "CodeTask AI Agent",
+  "description": "CodeTask AI Agent — 100% Free & Open Source AI coding agent for VS Code built on the Hermes Agent standard: agent loop, skills (SKILL.md), context files (AGENTS.md), memory and MCP. Bring your own API key (BYOK).",
+  "version": "0.1.1",
+  "publisher": "CodeTask",
+  "icon": "media/icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maiductuan/CodeTask.git"
+  },
+  "homepage": "https://github.com/maiductuan/CodeTask#readme",
+  "bugs": {
+    "url": "https://github.com/maiductuan/CodeTask/issues"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "agent",
+    "coding-agent",
+    "code-task",
+    "llm",
+    "byok",
+    "mcp",
+    "skills",
+    "hermes"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeTaskAgent.openPanel",
+        "title": "Code Task Agent: Open Agent Panel"
+      },
+      {
+        "command": "codeTaskAgent.setup",
+        "title": "Code Task Agent: Setup Provider & API Key"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "codeTaskAgent.openPanel",
+        "key": "ctrl+l",
+        "mac": "cmd+l"
+      },
+      {
+        "command": "codeTaskAgent.openPanel",
+        "key": "ctrl+i",
+        "mac": "cmd+i"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codeTaskAgentContainer",
+          "title": "Code Task AI",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "codeTaskAgentContainer": [
+        {
+          "type": "webview",
+          "id": "codeTaskAgent.agentView",
+          "name": "Code Task AI"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Code Task Agent",
+      "properties": {
+        "codeTaskAgent.agent.providers": {
+          "type": "array",
+          "default": [],
+          "description": "Danh sách provider profiles (không bao gồm API key — key lưu trong SecretStorage)."
+        },
+        "codeTaskAgent.agent.activeProfile": {
+          "type": "string",
+          "default": "",
+          "description": "Profile đang được dùng trong chat."
+        },
+        "codeTaskAgent.agent.maxIterations": {
+          "type": "number",
+          "default": 25,
+          "minimum": 1,
+          "maximum": 200,
+          "description": "Maximum agent loop iterations per task."
+        },
+        "codeTaskAgent.agent.approvalMode": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "ask-terminal",
+            "ask-all"
+          ],
+          "description": "Command approval mode: auto (run everything), ask-terminal (ask only for shell commands), ask-all (ask for every tool call)."
+        },
+        "codeTaskAgent.agent.terminalExecutionPolicy": {
+          "type": "string",
+          "default": "auto-whitelisted",
+          "enum": [
+            "auto-whitelisted",
+            "ask-all",
+            "auto-all"
+          ],
+          "description": "Terminal Execution Security Policy."
+        },
+        "codeTaskAgent.agent.whitelistCommands": {
+          "type": "array",
+          "default": [],
+          "description": "Whitelist of auto-approved terminal commands."
+        },
+        "codeTaskAgent.agent.blacklistCommands": {
+          "type": "array",
+          "default": [],
+          "description": "Blacklist of restricted terminal commands."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.webview.json",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "package": "vsce package --no-dependencies --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@types/sql.js": "^1.4.11",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^2.31.1",
+    "esbuild": "^0.23.1",
+    "eslint": "^9.9.0",
+    "globals": "^15.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sql.js": "^1.14.1",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.3.0",
+    "vitest": "^2.0.5",
+    "zod": "^4.4.3"
+  },
+  "dependencies": {
+    "@types/marked": "^5.0.2",
+    "marked": "^18.0.9"
+  }
+}

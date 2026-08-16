@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="codeTaskGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+  </defs>
+  <!-- Main Head Container -->
+  <rect x="4" y="4" width="24" height="24" rx="7" fill="#141419" stroke="url(#codeTaskGrad)" stroke-width="1.8"/>
+  
+  <!-- Code Brackets < / > -->
+  <path d="M 10 11 L 8 13 L 10 15" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 17 9.5 L 15 16.5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M 22 11 L 24 13 L 22 15" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Robot Antenna & Eyes -->
+  <circle cx="16" cy="18" r="1" fill="#818cf8"/>
+  <path d="M 16 19 L 16 20.5" stroke="#818cf8" stroke-width="1.2" stroke-linecap="round"/>
+  
+  <!-- Robot Face Mask -->
+  <rect x="8" y="20.5" width="16" height="6.5" rx="3.2" fill="#ffffff"/>
+  <!-- Eyes -->
+  <rect x="11" y="22.5" width="2.5" height="2.5" rx="1" fill="#141419"/>
+  <rect x="18.5" y="22.5" width="2.5" height="2.5" rx="1" fill="#141419"/>
+</svg>

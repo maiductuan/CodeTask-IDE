@@ -1,0 +1,21 @@
+{
+  "name": "codetask-ide",
+  "version": "0.1.0",
+  "description": "Code Task IDE — Independent AI-first Code Editor based on VS Code & VSCodium",
+  "main": "index.js",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "build:win": "powershell -ExecutionPolicy Bypass -File scripts/build-win.ps1",
+    "clean": "node scripts/clean.mjs"
+  },
+  "keywords": [
+    "codetask",
+    "ide",
+    "ai-editor",
+    "vscode-fork"
+  ],
+  "author": "CodeTask Team",
+  "license": "MIT"
+}
