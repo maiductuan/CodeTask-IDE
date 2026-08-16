@@ -8,6 +8,9 @@
     "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
     "build:win": "powershell -ExecutionPolicy Bypass -File scripts/build-win.ps1",
+    "build:mac": "bash scripts/build-mac.sh",
+    "build:mac:arm": "node scripts/build.mjs --target=darwin-arm64",
+    "build:mac:x64": "node scripts/build.mjs --target=darwin-x64",
     "clean": "node scripts/clean.mjs"
   },
   "keywords": [

@@ -31,8 +31,12 @@ delete cleanEnv.VCINSTALLDIR;
 delete cleanEnv.VSINSTALLDIR;
 delete cleanEnv.VCToolsInstallDir;
 
+const args = process.argv.slice(2);
+const targetArg = args.find((a) => a.startsWith('--target='));
+const specifiedTarget = targetArg ? targetArg.split('=')[1] : null;
+
 const platform = process.platform;
-console.log(`Detected Platform: ${platform}`);
+console.log(`Host Platform: ${platform} | Specified Target: ${specifiedTarget || 'auto-detect'}`);
 
 try {
   console.log('\n📦 [1/3] Installing Dependencies for VS Code Engine...');
@@ -55,20 +59,15 @@ try {
   console.log('\n🔨 [2/3] Compiling Code Task IDE Core & Built-in Agent...');
   execSync('npm run compile', { cwd: VSCODE_SRC, env: cleanEnv, stdio: 'inherit' });
 
-  console.log('\n🚀 [3/3] Packaging Application Executable for ' + platform + '...');
-  if (platform === 'win32') {
-    execSync('npx gulp vscode-win32-x64', { cwd: VSCODE_SRC, env: cleanEnv, stdio: 'inherit' });
-    console.log('\n🎉 Build Success! Executable folder:');
-    console.log(`   ${path.join(IDE_ROOT, 'VSCode-win32-x64')}`);
-  } else if (platform === 'darwin') {
-    execSync('npx gulp vscode-darwin-arm64', { cwd: VSCODE_SRC, env: cleanEnv, stdio: 'inherit' });
-    console.log('\n🎉 Build Success! Executable folder:');
-    console.log(`   ${path.join(IDE_ROOT, 'VSCode-darwin-arm64')}`);
-  } else if (platform === 'linux') {
-    execSync('npx gulp vscode-linux-x64', { cwd: VSCODE_SRC, env: cleanEnv, stdio: 'inherit' });
-    console.log('\n🎉 Build Success! Executable folder:');
-    console.log(`   ${path.join(IDE_ROOT, 'VSCode-linux-x64')}`);
-  }
+  console.log('\n🚀 [3/3] Packaging Application Executable...');
+  const target = specifiedTarget || (platform === 'win32' ? 'win32-x64' : platform === 'darwin' ? (process.arch === 'arm64' ? 'darwin-arm64' : 'darwin-x64') : 'linux-x64');
+
+  console.log(`Gulp Target: vscode-${target}`);
+  execSync(`npx gulp vscode-${target}`, { cwd: VSCODE_SRC, env: cleanEnv, stdio: 'inherit' });
+  
+  const outDir = path.join(IDE_ROOT, `VSCode-${target}`);
+  console.log('\n🎉 Build Success! Executable folder:');
+  console.log(`   ${outDir}`);
 } catch (error) {
   console.error('\n❌ Build Error:', error.message);
   process.exit(1);
